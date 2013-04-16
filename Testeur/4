@@ -1,0 +1,213 @@
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="skulpt.js" type="text/javascript"></script>
+<script src="builtin.js" type="text/javascript"></script>
+<title>Prototype PSTL</title>
+</head>
+<body>
+
+<br />
+<div name="q-r">
+<div name="quest">
+<textarea name = "1" rows='1' cols='80' id='question' >
+Quel est la commande permettant d afficher Hello world ?</textarea>
+</div>
+<br />
+
+
+<div name="rep">
+<textarea name = "1" rows='10' cols='80' id='code1' ></textarea>	
+</div>
+</div>
+
+
+<button type="button" onclick="runit(code1,output1)">Run</button>
+<br />
+<pre id="output1" >Resultat de la fonction : </pre>
+<br /><br /> 
+
+
+<div name="q-r">
+<div name="quest">
+<textarea name = "1" rows='1' cols='80' id='question1' >
+Quelle est la commande permettant d'affecter 5 a x et de l'afficher ?</textarea>>
+<br />
+</div>
+
+
+<div name="rep">
+<textarea name = "1" rows='10' cols='80' id='code2' ></textarea>	
+</div>
+
+</div>
+
+
+<button type="button" onclick="runit(code2,output2)">Run</button>
+<br />
+<pre id="output2" >Resultat de la fonction : </pre>
+<br /><br /> 
+
+<div name="q-r">
+<div name="quest">
+<textarea name = "2" rows='1' cols='80' id='question2' >
+Comment se dit fromage en anglais ?</textarea>
+</div>
+
+<div name="rep">
+<div id="qcm1">
+<input type="radio" onclick="checkcase(qcm1,box)"  id="box" value="Cheese" > Cheese<br>
+<input type="radio" onclick="checkcase(qcm1,box1)"  id="box1" value="pumpkin"> pumpkin<br>
+<input type="radio" onclick="checkcase(qcm1,box2)"  id="box2" value="tomato"> tomato<br>
+<input type="radio" onclick="checkcase(qcm1,box3)"  id="box3" value="patrick"> Patrick<br>
+<input type="button" onclick="verif(qcm1,1);" value="Check">
+<input type="button" name="cache" id="hidden" value="Cheese" style="visibility:hidden" >
+</div>
+</div>
+</div>
+
+<br/>
+
+<div name="q-r">
+<div name="quest">
+<textarea name = "2" rows='1' cols='80' id='question2' >
+Quel est le langage utilise ?</textarea>
+</div>
+
+<div name="rep">
+<div id="qcm2">
+<input type="radio" onclick="checkcase(qcm2,box4);" id="box4" value="C" > C<br>
+<input type="radio" onclick="checkcase(qcm2,box5);" id="box5" value="Ada"> Ada<br>
+<input type="radio" onclick="checkcase(qcm2,box6);" id="box6" value="Python"> Python<br>
+<input type="radio" onclick="checkcase(qcm2,box7);" id="box7" value="Java"> Java<br>
+<input type="button" onclick="verif(qcm2,2);" value="Check">
+<input type="button" name="cache" id="hidden2" value="C" style="visibility:hidden" >
+</div>
+</div>
+</div>
+
+<br />
+
+<input type="button" onclick="download();" value="Save">
+
+<script type="text/javascript">
+
+function verif(question,val){
+	var valeur = val;
+	var boxes = question.getElementsByTagName('input');
+	if (valeur == "1"){
+		compteur = compteur + 1;
+	} else {
+		compteur2 = compteur2 + 1;
+	}
+	for(i=0;i<boxes.length;i++){
+		if(boxes[i].checked){
+			var boitetest = boxes[i];
+		}else if(boxes[i].name == "cache"){
+			var resultat = boxes[i].value;
+		}
+	}
+	retourval(boitetest,resultat,valeur);
+}
+compteur = 0;
+compteur2 = 0;
+
+
+
+function checkcase(id,boite){
+var boxes = id.getElementsByTagName('input');
+for(i=0;i<boxes.length;i++){
+	if (boxes[i] === boite){
+		boite.checked = true;
+	}else{
+		boxes[i].checked = false;
+	}
+}
+}
+
+
+function retourval(boite,result,val){	
+if (boite.value == result){
+       	if (val == 1){
+			alert ("Reponse juste, vous avez eu besoin de " + compteur + " tentatives");
+		}else if (val == 2){
+			alert ("Reponse juste, vous avez eu besoin de " + compteur2 + " tentatives");
+		}
+	}else{
+	alert ("Ce n'est pas le resultat attendu");
+}
+}
+
+
+
+function download() {
+	var e="";
+	var quesrepo = document.getElementsByName('rep');
+	var questions = document.getElementsByName('quest');
+	for (i=0;i<quesrepo.length;i++){
+		var cpt = quesrepo[i].getElementsByTagName('textarea');
+		var cpt2 = quesrepo[i].getElementsByTagName('input');
+		var cpt3 = questions[i].getElementsByTagName('textarea');
+		for(j=0;j<cpt.length;j++){
+			e = e + cpt[j].value + '\n';
+		}
+		for(z=0;z<cpt2.length;z++){
+			if (cpt2[z].checked){
+				e = e + "#" + cpt2[z].value + '\n';
+			}
+		}
+		for(a=0;a<cpt3.length;a++){
+			e= e + "#" + cpt3[a].value + '\n';
+		}
+	}
+	doDL(e);	
+}
+
+function doDL(s){
+function dataUrl(data) {return "data:x-application/text," + escape(data);}
+window.open(dataUrl(s));
+
+
+}
+// output functions are configurable.  This one just appends some text
+// to a pre element.
+function outf(text) {
+    var mypre = sortieglobale;
+    mypre.innerHTML = mypre.innerHTML + text;
+}
+function builtinRead(x) {
+    if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+            throw "File not found: '" + x + "'";
+    return Sk.builtinFiles["files"][x];
+}
+
+// Here's everything you need to run a python program in skulpt
+// grab the code from your textarea
+// get a reference to your pre element for output
+// configure the output function
+// call Sk.importMainWithBody()
+function runit(code,sortie) {
+   var prog = code.value;
+   $(function (){
+   var test = $.get("reunion.txt", function() {
+    alert("jy suis");
+    });
+   });
+   alert("apres");
+   sortieglobale = sortie;
+   mypre = sortie;
+   mypre.innerHTML = '';
+   Sk.canvas = "mycanvas";
+   Sk.pre = "output";
+   Sk.configure({output:outf, read:builtinRead});
+   eval(Sk.importMainWithBody("<stdin>",false,prog));
+}
+
+
+</script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,7 @@
+Sauvegarde de session, l'onglet est recupéré. Cadres sauvegardés ? Au pire faire un copier coller. Bouton soumission, fais la sauvegarde du TME et prepare la soumission, l'élève n'a plus qu'à remplir son nom et son groupe. Le fichier de soumission doit être un .py, tout ce qui n'est pas code doit être sous forme de commentaires.  
+On rajoute les tests des étudiants. 
+Demandez à Peschanski pour anonymat des étudiants ! 
+Connection => Loggé sur la machine, pas de login ni de password.
+TME Solo => Feuille imprimé par l'enseignant. La soumission se fait comme d'habitude. Le TME solo ne sera qu'une seule boite avec un bouton Run, Save et Soumettre. Besoin numéro 4 du recueil des besoins => TME solo
+Faire des exemples interactifs pour le cours.
+Faire tourner les exos envoyés par Tarissan !     
